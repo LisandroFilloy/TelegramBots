@@ -32,7 +32,7 @@ def gasto_licha(message):
 
     motivo = lista_mensaje[-2] if len(lista_mensaje) >= 2 else ''
 
-    fila_gastos = {'monto': ultimo_gasto, 'autor': 'licha', 'motivo' : motivo, 'fecha_de_creacion': _fecha}
+    fila_gastos = {'monto': ultimo_gasto, 'autor': 'licha', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos.append(fila_gastos, ignore_index=True)
     df_gastos.to_csv('lista_gastos.csv')
     _deudor, _monto = deudor(df_gastos)
@@ -84,8 +84,8 @@ def cerrar_mes(message):
             deuda = 10000 - _monto
             autor = 'juli'
 
-    df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'fecha_de_creacion': _fecha,
-                              'motivo': 'deuda_mes_pasado'})
+    df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'motivo': 'deuda_mes_pasado',
+                              'fecha_de_creacion': _fecha})
 
     df_gastos.to_csv('lista_gastos.csv')
 
