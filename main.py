@@ -1,4 +1,5 @@
 import telebot
+import datetime as dt
 
 API_KEY = '2128358744:AAHk2RCqN89kR04RIWCrNgQob0sHn2LajNE'
 bot = telebot.TeleBot(API_KEY)
@@ -25,6 +26,7 @@ def greet(message):
 
 @bot.message_handler(commands=['licha'])
 def gasto_licha(message):
+    _today = dt.datetime.today()
     lista_mensaje = message.text.split(' ')
 
     try:
@@ -36,7 +38,7 @@ def gasto_licha(message):
     gastos_licha.append(ultimo_gasto)
     _deudor = deudor(gastos_licha, gastos_juli)
     _monto = abs(sum(gastos_licha) - sum(gastos_juli))
-    bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
+    bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto} - {_today}")
 
 
 @bot.message_handler(commands=['juli'])
