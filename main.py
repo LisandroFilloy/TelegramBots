@@ -34,7 +34,7 @@ def gasto_licha(message):
 
     fila_gastos = {'monto': ultimo_gasto, 'autor': 'licha', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos.append(fila_gastos, ignore_index=True)
-    df_gastos.to_csv('lista_gastos.csv')
+    df_gastos.to_csv('lista_gastos.csv', index=False)
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
 
@@ -55,7 +55,7 @@ def gasto_juli(message):
 
     fila_gastos = {'monto': ultimo_gasto, 'autor': 'juli', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos.append(fila_gastos, ignore_index=True)
-    df_gastos.to_csv('lista_gastos.csv')
+    df_gastos.to_csv('lista_gastos.csv', index=False)
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
 
@@ -69,7 +69,7 @@ def cerrar_mes(message):
     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
 
     mes = mode(fechas)
-    df_gastos.to_csv(f'gastos_{mes}.csv')
+    df_gastos.to_csv(f'gastos_{mes}.csv', index=False)
 
     _deudor, _monto = deudor(df_gastos)
 
@@ -87,7 +87,7 @@ def cerrar_mes(message):
     df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'motivo': 'deuda_mes_pasado',
                               'fecha_de_creacion': _fecha})
 
-    df_gastos.to_csv('lista_gastos.csv')
+    df_gastos.to_csv('lista_gastos.csv', index=False)
 
 
 bot.polling()
