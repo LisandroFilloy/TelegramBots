@@ -33,7 +33,7 @@ def gasto_licha(message):
         bot.send_message(message.chat.id, 'Hay un error en el monto')
         return
 
-    motivo = lista_mensaje[-2] if len(lista_mensaje) >= 2 else ''
+    motivo = lista_mensaje[-2] if len(lista_mensaje) >= 3 else ''
 
     fila_gastos = {'monto': ultimo_gasto, 'autor': 'licha', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos = df_gastos.append(fila_gastos, ignore_index=True)
@@ -55,7 +55,7 @@ def gasto_juli(message):
         bot.send_message(message.chat.id, 'Hay un error en el monto')
         return
 
-    motivo = lista_mensaje[-2] if len(lista_mensaje) >= 2 else ''
+    motivo = lista_mensaje[-2] if len(lista_mensaje) >= 3 else ''
 
     fila_gastos = {'monto': ultimo_gasto, 'autor': 'juli', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos = df_gastos.append(fila_gastos, ignore_index=True)
