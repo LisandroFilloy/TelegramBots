@@ -65,14 +65,14 @@ def cerrar_mes(message):
     df_gastos = pd.read_csv('lista_gastos.csv')
     _fecha = str(dt.datetime.today())[:16]
 
-    fechas = list(df_gastos.fecha_de_creacion)
+    fechas = list(df_gastos['fecha_de_creacion'])
     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
 
     mes = mode(fechas)
     df_gastos.to_csv(f'gastos_{mes}.csv')
 
     _deudor, _monto = deudor(df_gastos)
-    deuda = 0
+
     if _deudor == 'licha':
         deuda = _monto + 10000
         autor = 'juli'
