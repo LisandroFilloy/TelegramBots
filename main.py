@@ -88,7 +88,7 @@ def cerrar_mes(message):
             autor = 'juli'
 
     df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'motivo': 'deuda_mes_pasado',
-                              'fecha_de_creacion': _fecha}, index=pd.rangeIndex())
+                              'fecha_de_creacion': _fecha}, index=pd.RangeIndex())
 
     df_gastos.to_csv('lista_gastos.csv', index=False)
 
