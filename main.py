@@ -37,7 +37,6 @@ def gasto_licha(message):
 
     fila_gastos = {'monto': ultimo_gasto, 'autor': 'licha', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos = df_gastos.append(fila_gastos, ignore_index=True)
-    pdb.set_trace()
     df_gastos.to_csv('lista_gastos.csv', index=False)
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
