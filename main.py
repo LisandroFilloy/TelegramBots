@@ -60,34 +60,34 @@ def gasto_juli(message):
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
 
 
-@bot.message_handler(commands=['cerrar'])
-def cerrar_mes(message):
-    df_gastos = pd.read_csv('lista_gastos.csv')
-    _fecha = str(dt.datetime.today())[:16]
-
-    fechas = list(df_gastos['fecha_de_creacion'])
-    fechas = [int(x[5:7].replace('-', '')) for x in fechas]
-
-    mes = mode(fechas)
-    df_gastos.to_csv(f'gastos_{mes}.csv')
-
-    _deudor, _monto = deudor(df_gastos)
-
-    if _deudor == 'licha':
-        deuda = _monto + 10000
-        autor = 'juli'
-    else:
-        if _monto > 10000:
-            deuda = _monto - 10000
-            autor = 'licha'
-        else:
-            deuda = 10000 - _monto
-            autor = 'juli'
-
-    df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'motivo': 'deuda_mes_pasado',
-                              'fecha_de_creacion': _fecha})
-
-    df_gastos.to_csv('lista_gastos.csv')
+# @bot.message_handler(commands=['cerrar'])
+# def cerrar_mes(message):
+#     df_gastos = pd.read_csv('lista_gastos.csv')
+#     _fecha = str(dt.datetime.today())[:16]
+#
+#     fechas = list(df_gastos['fecha_de_creacion'])
+#     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
+#
+#     mes = mode(fechas)
+#     df_gastos.to_csv(f'gastos_{mes}.csv')
+#
+#     _deudor, _monto = deudor(df_gastos)
+#
+#     if _deudor == 'licha':
+#         deuda = _monto + 10000
+#         autor = 'juli'
+#     else:
+#         if _monto > 10000:
+#             deuda = _monto - 10000
+#             autor = 'licha'
+#         else:
+#             deuda = 10000 - _monto
+#             autor = 'juli'
+#
+#     df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'motivo': 'deuda_mes_pasado',
+#                               'fecha_de_creacion': _fecha})
+#
+#     df_gastos.to_csv('lista_gastos.csv')
 
 
 bot.polling()
