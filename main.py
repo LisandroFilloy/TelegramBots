@@ -2,6 +2,7 @@ import telebot
 import datetime as dt
 import pandas as pd
 from statistics import mode
+import pdb
 
 API_KEY = '2128358744:AAHk2RCqN89kR04RIWCrNgQob0sHn2LajNE'
 bot = telebot.TeleBot(API_KEY)
@@ -14,6 +15,8 @@ def deudor(df):
 
     if gastos_juli > gastos_licha:
         return 'licha', dif
+    elif gastos_juli == gastos_licha:
+        return 'ninguno', 0
     else:
         return 'juli', dif
 
@@ -34,6 +37,7 @@ def gasto_licha(message):
 
     fila_gastos = {'monto': ultimo_gasto, 'autor': 'licha', 'motivo': motivo, 'fecha_de_creacion': _fecha}
     df_gastos.append(fila_gastos, ignore_index=True)
+    pdb.set_trac()
     df_gastos.to_csv('lista_gastos.csv', index=False)
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
