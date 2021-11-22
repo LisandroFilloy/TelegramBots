@@ -75,7 +75,7 @@ def gasto_juli(message):
 def cerrar_mes(message):
     df_gastos = pd.read_csv('lista_gastos.csv')
 
-    if df_gastos.empty():
+    if df_gastos.empty:
         bot.send_message(message.chat.id, f"No hubo ningun gasto")
         return
 
