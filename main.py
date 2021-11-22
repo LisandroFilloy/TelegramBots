@@ -72,7 +72,8 @@ def cerrar_mes(message):
     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
 
     mes = mode(fechas)
-    df_gastos.to_csv(f'gastos_{mes}.csv', index=False)
+    saved_file_name = f'gastos_{mes}_{_fecha}.csv'
+    df_gastos.to_csv(saved_file_name, index=False)
 
     _deudor, _monto = deudor(df_gastos)
 
@@ -91,6 +92,7 @@ def cerrar_mes(message):
                               'fecha_de_creacion': _fecha}, index=pd.RangeIndex(start=0))
 
     df_gastos.to_csv('lista_gastos.csv', index=False)
+    bot.send_document(message.chat.id, saved_file_name)
 
 
 bot.polling()
