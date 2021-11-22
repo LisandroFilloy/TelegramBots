@@ -74,8 +74,12 @@ def gasto_juli(message):
 @bot.message_handler(commands=['cerrar'])
 def cerrar_mes(message):
     df_gastos = pd.read_csv('lista_gastos.csv')
-    _fecha = str(dt.datetime.today())[:16]
 
+    if df_gastos.empty():
+        bot.send_message(message.chat.id, f"No hubo ningun gasto")
+        return
+
+    _fecha = str(dt.datetime.today())[:16]
     fechas = list(df_gastos['fecha_de_creacion'])
     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
 
