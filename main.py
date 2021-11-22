@@ -2,10 +2,18 @@ import telebot
 import datetime as dt
 import pandas as pd
 from statistics import mode
+import csv
 import pdb
 
 API_KEY = '2128358744:AAHk2RCqN89kR04RIWCrNgQob0sHn2LajNE'
 bot = telebot.TeleBot(API_KEY)
+
+
+def csv_to_txt(csv_file_path):
+    with open(csv_file_path.replace('csv', 'txt'), "w") as my_output_file:
+        with open(csv_file_path, "r") as my_input_file:
+            [my_output_file.write(" ".join(row) + '\n') for row in csv.reader(my_input_file)]
+        my_output_file.close()
 
 
 def deudor(df):
@@ -92,7 +100,8 @@ def cerrar_mes(message):
                               'fecha_de_creacion': _fecha}, index=pd.RangeIndex(start=0))
 
     df_gastos.to_csv('lista_gastos.csv', index=False)
-    bot.send_document(message.chat.id, saved_file_name)
+    with open(saved_file_name, 'rb') as doc:
+        bot.send_document(message.chat.id, doc)
 
 
 bot.polling()
