@@ -55,7 +55,8 @@ def bnb_price(message):
 
     bot.send_message(message.chat.id, f'BNB price: ${_price} (PancakeSwapV2)')
 
-@bot.message_handler(commands=['Sueldo','sueldo'])
+
+@bot.message_handler(commands=['Sueldo', 'sueldo'])
 def sueldo(message):
     dolar_blue_html_req = req.get('https://dolarhoy.com/cotizaciondolarcontadoconliqui')
     soup = BeautifulSoup(dolar_blue_html_req.content, 'html.parser')
@@ -70,6 +71,6 @@ def sueldo(message):
     ccl_low = float(values[0].string.replace('$', ''))
     ccl_high = float(values[1].string.replace('$', ''))
 
-    _sueldo = dolar_blue_mean*290 + ccl_high*400*0.83
+    _sueldo = dolar_blue_mean * 290 + ccl_high * 400 * 0.83
 
     bot.send_message(message.chat.id, f'Sueldo = ${_sueldo} (ARG)')
