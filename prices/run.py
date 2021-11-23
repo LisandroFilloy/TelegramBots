@@ -10,9 +10,9 @@ bot = telebot.TeleBot(API_KEY)
 def dolar_blue_pricing(message):
     dolar_blue_html_req = req.get('https://dolarhoy.com/cotizaciondolarblue')
     soup = BeautifulSoup(dolar_blue_html_req.content, 'html.parser')
-    values = soup.find_all('div', attrs={'class' : 'value'})
-    low = float(values[0].string.replace('$',''))
-    high = float(values[1].string.replace('$',''))
+    values = soup.find_all('div', attrs={'class': 'value'})
+    low = float(values[0].string.replace('$', ''))
+    high = float(values[1].string.replace('$', ''))
     dolar_blue_mean = low + high / 2
 
     bot.send_message(message.chat.id, f'Bajo : {low}')
@@ -31,9 +31,11 @@ def dolar_ccl_pricing(message):
     bot.send_message(message.chat.id, f'Punta compradora : {low}')
     bot.send_message(message.chat.id, f'Punta vendedora : {high}')
 
+
 @bot.message_handler(commands=['PVU', 'pvu'])
 def pvu_price(message):
-    pvu_price_json = req.get('https://api.pancakeswap.info/api/v2/tokens/0x31471e0791fcdbe82fbf4c44943255e923f1b794').json()
+    pvu_price_json = req.get(
+        'https://api.pancakeswap.info/api/v2/tokens/0x31471e0791fcdbe82fbf4c44943255e923f1b794').json()
     _data = pvu_price_json.get('data', {})
     _price = _data.get('price')
     if _price:
@@ -44,7 +46,8 @@ def pvu_price(message):
 
 @bot.message_handler(commands=['BNB', 'bnb'])
 def bnb_price(message):
-    bnb_price_json = req.get('https://api.pancakeswap.info/api/v2/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c').json()
+    bnb_price_json = req.get(
+        'https://api.pancakeswap.info/api/v2/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c').json()
     _data = bnb_price_json.get('data', {})
     _price = _data.get('price')
     if _price:
