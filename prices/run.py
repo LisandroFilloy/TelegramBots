@@ -13,7 +13,7 @@ def dolar_blue_pricing(message):
     values = soup.find_all('div', attrs={'class': 'value'})
     low = float(values[0].string.replace('$', ''))
     high = float(values[1].string.replace('$', ''))
-    dolar_blue_mean = low + high / 2
+    dolar_blue_mean = (low + high) / 2
 
     bot.send_message(message.chat.id, f'Bajo : {low}')
     bot.send_message(message.chat.id, f'Alto : {high}')
@@ -63,7 +63,7 @@ def sueldo(message):
     values = soup.find_all('div', attrs={'class': 'value'})
     low = float(values[0].string.replace('$', ''))
     high = float(values[1].string.replace('$', ''))
-    dolar_blue_mean = low + high / 2
+    dolar_blue_mean = (low + high) / 2
 
     dolar_blue_html_req = req.get('https://dolarhoy.com/cotizaciondolarcontadoconliqui')
     soup = BeautifulSoup(dolar_blue_html_req.content, 'html.parser')
