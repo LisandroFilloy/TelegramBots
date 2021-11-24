@@ -74,3 +74,6 @@ def sueldo(message):
     _sueldo = dolar_blue_mean * 290 + ccl_high * 400 * 0.83
 
     bot.send_message(message.chat.id, f'Sueldo = ${_sueldo} (ARG)')
+
+
+bot.infinity_polling()
