@@ -4,8 +4,9 @@ import pandas as pd
 from statistics import mode
 import csv
 import pdb
+import os
 
-API_KEY = '2128358744:AAHk2RCqN89kR04RIWCrNgQob0sHn2LajNE'
+API_KEY = os.environ['GASTOS_API_KEY']
 bot = telebot.TeleBot(API_KEY)
 
 

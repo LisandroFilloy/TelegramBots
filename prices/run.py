@@ -1,8 +1,9 @@
 import telebot
 import requests as req
 from bs4 import BeautifulSoup
+import os
 
-API_KEY = '2046818445:AAGt75S5ZzzRr9pJ3I0ucjB9C6PcKU5R-Mw'
+API_KEY = os.environ['PRICES_API_KEY']
 bot = telebot.TeleBot(API_KEY)
 
 
