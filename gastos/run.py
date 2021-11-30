@@ -10,7 +10,7 @@ from create_csv_lista_gastos import crear_lista_gastos
 
 API_KEY = os.environ['GASTOS_API_KEY']
 bot = telebot.TeleBot(API_KEY)
-USER_ID_LICHA = ''
+USER_ID_LICHA = 935301551
 USER_ID_JULI = ''
 USER_ID_LIST = []
 
@@ -187,7 +187,6 @@ def gasto_individual_juli(message):
 def show_id(message):
     _id = message.from_user.id
     bot.send_message(message.chat.id, _id)
-    print(type(_id))
 
 
 bot.polling()
