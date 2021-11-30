@@ -38,8 +38,6 @@ def supplement(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    cursor.execute("""CREATE TABLE foods
-                      (date text, description text)""")
     cursor.execute(f"""INSERT INTO foods VALUES ({_date}, {_description})""")
     connector.commit()
     connector.close()
