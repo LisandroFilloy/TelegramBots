@@ -21,7 +21,8 @@ def food(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    cursor.execute(f"""INSERT INTO foods VALUES ({_date}, {_description})""")
+    insert_query = f"""INSERT INTO foods VALUES ({_date}, {_description})"""
+    cursor.execute(insert_query)
     connector.commit()
     connector.close()
 
@@ -33,13 +34,13 @@ def supplement(message):
     _today = datetime.datetime.today()
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
     _text = message.text.lower()
-    message = _text.replace('/suplemento ', '')
+    _description = _text.replace('/suplemento ', '')
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
     cursor.execute("""CREATE TABLE foods
                       (date text, description text)""")
-    cursor.execute(f"""INSERT INTO foods VALUES ({_date}, {message})""")
+    cursor.execute(f"""INSERT INTO foods VALUES ({_date}, {_description})""")
     connector.commit()
     connector.close()
 
