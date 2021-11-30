@@ -185,9 +185,9 @@ def gasto_individual_juli(message):
 
 @bot.message_handler(commands=['id'])
 def show_id(message):
-    _id = str(message.from_user.id)
+    _id = message.from_user.id
     bot.send_message(message.chat.id, _id)
-    print(type(id))
+    print(type(_id))
 
 
 bot.polling()
