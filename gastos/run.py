@@ -42,7 +42,6 @@ def gasto_licha(message):
         bot.send_message(message.chat.id, 'Usuario no habilitado')
         return
 
-    df_gastos = pd.read_csv('lista_gastos.csv')
     _date = formatted_date()
     lista_mensaje = message.text.split(' ')
 
@@ -58,6 +57,7 @@ def gasto_licha(message):
         writer = csv.writer(lista_gastos)
         writer.writerow([_amount, 'licha', _description, _date])
 
+    df_gastos = pd.read_csv('lista_gastos.csv')
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
 
@@ -69,7 +69,6 @@ def gasto_juli(message):
         bot.send_message(message.chat.id, 'Usuario no habilitado')
         return
 
-    df_gastos = pd.read_csv('lista_gastos.csv')
     _date = formatted_date()
     message_list = message.text.split(' ')
 
@@ -85,6 +84,7 @@ def gasto_juli(message):
         writer = csv.writer(lista_gastos)
         writer.writerow([_amount, 'juli', _description, _date])
 
+    df_gastos = pd.read_csv('lista_gastos.csv')
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
 
