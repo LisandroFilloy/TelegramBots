@@ -12,7 +12,7 @@ API_KEY = os.environ['GASTOS_API_KEY']
 bot = telebot.TeleBot(API_KEY)
 USER_ID_LICHA = 935301551
 USER_ID_JULI = ''
-USER_ID_LIST = []
+USER_ID_LIST = [935301551]
 
 
 def formatted_date():
