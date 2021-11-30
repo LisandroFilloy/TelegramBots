@@ -141,7 +141,7 @@ def gasto_individual_licha(message):
     _date = formatted_date()
     _message_list = message.text.split(' ')
     _description = ''
-    if len(_message_list == 3):
+    if len(_message_list) == 3:
         _description = _message_list[1]
 
     try:
@@ -167,7 +167,7 @@ def gasto_individual_juli(message):
     _date = formatted_date()
     _message_list = message.text.split(' ')
     _description = ''
-    if len(_message_list == 3):
+    if len(_message_list) == 3:
         _description = _message_list[1]
 
     try:
