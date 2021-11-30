@@ -38,7 +38,7 @@ def supplement(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    cursor.execute(f"""INSERT INTO foods VALUES ({_date}, {_description})""")
+    cursor.execute(f"""INSERT INTO foods VALUES ('{_date}', '{_description}')""")
     connector.commit()
     connector.close()
 
@@ -65,7 +65,7 @@ def deposition(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    cursor.execute(f"""INSERT INTO depositions VALUES ({_date}, {bristol_level})""")
+    cursor.execute(f"""INSERT INTO depositions VALUES ('{_date}', '{bristol_level}')""")
     connector.commit()
     connector.close()
 
@@ -85,7 +85,7 @@ def sintoma(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    cursor.execute(f"""INSERT INTO symptoms VALUES ({_date}, {_description})""")
+    cursor.execute(f"""INSERT INTO symptoms VALUES ('{_date}', '{_description}')""")
     connector.commit()
     connector.close()
 
@@ -105,7 +105,7 @@ def comentario(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    cursor.execute(f"""INSERT INTO comments VALUES ({_date}, {_description})""")
+    cursor.execute(f"""INSERT INTO comments VALUES ('{_date}', '{_description}')""")
     connector.commit()
     connector.close()
 
