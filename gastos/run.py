@@ -111,8 +111,8 @@ def cerrar_mes(message):
     saved_file_name_licha = f'gastos_{mes}_{_date}_licha.csv'
     saved_file_name_juli = f'gastos_{mes}_{_date}_juli.csv'
     df_gastos.to_csv(saved_file_name_total, index=False)
-    df_gastos[df_gastos.autor.isin(['licha', 'licha_individual'])].to_csv(saved_file_name_licha)
-    df_gastos[df_gastos.autor.isin(['juli', 'juli_individual'])].to_csv(saved_file_name_juli)
+    df_gastos[df_gastos.autor.isin(['licha', 'licha_individual'])].to_csv(saved_file_name_licha, index=False)
+    df_gastos[df_gastos.autor.isin(['juli', 'juli_individual'])].to_csv(saved_file_name_juli, index=False)
 
     _deudor, _monto = deudor(df_gastos)
     bot.send_message(message.chat.id, f'El mes cerro con {_deudor} adeudando {_monto}')
