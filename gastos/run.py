@@ -5,16 +5,10 @@ from statistics import mode
 import csv
 import pdb
 import os
+from create_csv_lista_gastos import crear_lista_gastos
 
 API_KEY = os.environ['GASTOS_API_KEY']
 bot = telebot.TeleBot(API_KEY)
-
-
-def csv_to_txt(csv_file_path):
-    with open(csv_file_path.replace('csv', 'txt'), "w") as my_output_file:
-        with open(csv_file_path, "r") as my_input_file:
-            [my_output_file.write(" ".join(row) + '\n') for row in csv.reader(my_input_file)]
-        my_output_file.close()
 
 
 def deudor(df):
@@ -33,7 +27,8 @@ def deudor(df):
 @bot.message_handler(commands=['licha', 'Licha'])
 def gasto_licha(message):
     df_gastos = pd.read_csv('lista_gastos.csv')
-    _fecha = str(dt.datetime.today())[:16]
+    _today = dt.datetime.today() - dt.timedelta(hours=3)
+    _fecha = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
     lista_mensaje = message.text.split(' ')
 
     try:
@@ -54,7 +49,8 @@ def gasto_licha(message):
 @bot.message_handler(commands=['juli', 'Juli'])
 def gasto_juli(message):
     df_gastos = pd.read_csv('lista_gastos.csv')
-    _fecha = str(dt.datetime.today())[:16]
+    _today = dt.datetime.today() - dt.timedelta(hours=3)
+    _fecha = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
     lista_mensaje = message.text.split(' ')
 
     try:
@@ -80,33 +76,24 @@ def cerrar_mes(message):
         bot.send_message(message.chat.id, f"No hubo ningun gasto")
         return
 
-    _fecha = str(dt.datetime.today())[:16]
+    _today = dt.datetime.today() - dt.timedelta(hours=3)
+    _fecha = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
+
     fechas = list(df_gastos['fecha_de_creacion'])
     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
-
     mes = mode(fechas)
     saved_file_name = f'gastos_{mes}_{_fecha}.csv'
     df_gastos.to_csv(saved_file_name, index=False)
 
     _deudor, _monto = deudor(df_gastos)
+    bot.send_message(message.chat.id, f'El mes cerro con {_deudor} adeudando {_monto}')
 
-    if _deudor == 'licha':
-        deuda = _monto + 10000
-        autor = 'juli'
-    else:
-        if _monto > 10000:
-            deuda = _monto - 10000
-            autor = 'licha'
-        else:
-            deuda = 10000 - _monto
-            autor = 'juli'
-
-    df_gastos = pd.DataFrame({'monto': deuda, 'autor': autor, 'motivo': 'deuda_mes_pasado',
-                              'fecha_de_creacion': _fecha}, index=pd.RangeIndex(start=0))
-
-    df_gastos.to_csv('lista_gastos.csv', index=False)
     with open(saved_file_name, 'rb') as doc:
         bot.send_document(message.chat.id, doc)
+
+    os.remove('lista_gastos.csv')
+
+    crear_lista_gastos()
 
 
 bot.polling()
