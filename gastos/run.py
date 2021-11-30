@@ -54,7 +54,7 @@ def gasto_licha(message):
 
     _description = lista_mensaje[-2] if len(lista_mensaje) >= 3 else ''
 
-    with open('lista_gastos.csv', 'w') as lista_gastos:
+    with open('lista_gastos.csv', 'a') as lista_gastos:
         writer = csv.writer(lista_gastos)
         writer.writerow([_amount, 'licha', _description, _date])
 
@@ -81,7 +81,7 @@ def gasto_juli(message):
 
     _description = message_list[-2] if len(message_list) >= 3 else ''
 
-    with open('lista_gastos.csv', 'w') as lista_gastos:
+    with open('lista_gastos.csv', 'a') as lista_gastos:
         writer = csv.writer(lista_gastos)
         writer.writerow([_amount, 'juli', _description, _date])
 
@@ -150,7 +150,7 @@ def gasto_individual_licha(message):
         bot.send_message(message.chat.id, 'Olvidaste anotar el monto')
         return
 
-    with open('lista_gastos.csv', 'w') as lista_gastos:
+    with open('lista_gastos.csv', 'a') as lista_gastos:
         writer = csv.writer(lista_gastos)
         writer.writerow([_amount, 'licha_individual', _description, _date])
 
@@ -176,7 +176,7 @@ def gasto_individual_juli(message):
         bot.send_message(message.chat.id, 'Olvidaste anotar el monto')
         return
 
-    with open('lista_gastos.csv', 'w') as lista_gastos:
+    with open('lista_gastos.csv', 'a') as lista_gastos:
         writer = csv.writer(lista_gastos)
         writer.writerow([_amount, 'juli_individual', _description, _date])
 
