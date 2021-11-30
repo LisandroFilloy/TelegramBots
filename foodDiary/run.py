@@ -51,10 +51,6 @@ def deposition(message):
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
     _text = message.text.lower()
 
-    if len(_text.split(' ') != 3):
-        bot.send_message(message.chat.id, 'Deposición mal cargada')
-        return
-
     bristol_level = _text.split(' ')[-1]
 
     try:
