@@ -113,7 +113,7 @@ def comentario(message):
     bot.send_message(message.chat.id, 'Comentario cargado con éxito')
 
 
-@bot.message_handler(func=(lambda x: True if str(x).lower() in ['id'] else False))
+@bot.message_handler(func=(lambda x: True if '\id' in str(x).lower()  else False))
 def id(message):
     x = message.from_user.id
     bot.send_message(message.chat.id, x)
