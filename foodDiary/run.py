@@ -8,7 +8,7 @@ API_KEY = os.environ['FOOD_DIARY_API_KEY']
 bot = telebot.TeleBot(API_KEY)
 
 
-@bot.message_handler(func=(lambda x: True if str(x).lower() == 'comida' else False))
+@bot.message_handler(commands=['comida'])
 def food(message):
     _today = datetime.datetime.today()
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
@@ -28,7 +28,7 @@ def food(message):
     bot.send_message(message.chat.id, 'Comida cargada con éxito')
 
 
-@bot.message_handler(func=(lambda x: True if str(x).lower() == 'suplemento' else False))
+@bot.message_handler(commands=['suplemento'])
 def supplement(message):
     _today = datetime.datetime.today()
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
@@ -46,7 +46,7 @@ def supplement(message):
     bot.send_message(message.chat.id, 'Suplemento cargado con exito')
 
 
-@bot.message_handler(func=(lambda x: True if str(x).lower() == 'deposicion' else False))
+@bot.message_handler(commands=['deposicion'])
 def deposition(message):
     _today = datetime.datetime.today()
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
@@ -73,7 +73,7 @@ def deposition(message):
     bot.send_message(message.chat.id, 'Deposición cargada con éxito')
 
 
-@bot.message_handler(func=(lambda x: True if str(x).lower().replace('í', 'i') in ['sintoma'] else False))
+@bot.message_handler(commands=['sintoma', 'síntoma'])
 def sintoma(message):
     _today = datetime.datetime.today()
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
@@ -93,7 +93,7 @@ def sintoma(message):
     bot.send_message(message.chat.id, 'Síntoma cargado con éxito')
 
 
-@bot.message_handler(func=(lambda x: True if str(x).lower() in ['comentario'] else False))
+@bot.message_handler(commands=['comentario'])
 def comentario(message):
     _today = datetime.datetime.today()
     _date = '{}-{}-{} {}:{}'.format(_today.year, _today.month, _today.day, _today.hour, _today.minute)
@@ -113,7 +113,7 @@ def comentario(message):
     bot.send_message(message.chat.id, 'Comentario cargado con éxito')
 
 
-@bot.message_handler(func=(lambda x: True if '\id' in str(x).lower()  else False))
+@bot.message_handler(func=(lambda x: True if '/id' in str(x).lower() else False))
 def id(message):
     x = message.from_user.id
     bot.send_message(message.chat.id, x)
