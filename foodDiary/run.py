@@ -21,7 +21,7 @@ def food(message):
 
     connector = sqlite3.connect('food_diary_database.db')
     cursor = connector.cursor()
-    insert_query = f"""INSERT INTO foods VALUES ({_date}, {_description})"""
+    insert_query = f"""INSERT INTO foods VALUES ('{_date}', '{_description}')"""
     cursor.execute(insert_query)
     connector.commit()
     connector.close()
