@@ -11,8 +11,8 @@ from create_csv_lista_gastos import crear_lista_gastos
 API_KEY = os.environ['GASTOS_API_KEY']
 bot = telebot.TeleBot(API_KEY)
 USER_ID_LICHA = 935301551
-USER_ID_JULI = ''
-USER_ID_LIST = [935301551]
+USER_ID_JULI = 1986869505
+USER_ID_LIST = [935301551, 1986869505]
 
 
 def formatted_date():
@@ -131,10 +131,10 @@ def cerrar_mes(message):
     crear_lista_gastos()
 
 
-@bot.message_handler(commands=['lichaIndividual'])
-def gasto_individual_licha(message):
+@bot.message_handler(commands=['mio'])
+def gasto_individual(message):
     user_id = message.from_user.id
-    if user_id != USER_ID_LICHA:
+    if user_id not in USER_ID_LIST:
         bot.send_message(message.chat.id, 'Usuario no habilitado')
         return
 
@@ -152,33 +152,10 @@ def gasto_individual_licha(message):
 
     with open('lista_gastos.csv', 'a') as lista_gastos:
         writer = csv.writer(lista_gastos)
-        writer.writerow([_amount, 'licha_individual', _description, _date])
-
-    bot.send_message(message.chat.id, 'Pago cargado correctamente')
-
-
-@bot.message_handler(commands=['juliIndividual'])
-def gasto_individual_juli(message):
-    user_id = message.from_user.id
-    if user_id != USER_ID_JULI:
-        bot.send_message(message.chat.id, 'Usuario no habilitado')
-        return
-
-    _date = formatted_date()
-    _message_list = message.text.split(' ')
-    _description = ''
-    if len(_message_list) == 3:
-        _description = _message_list[1]
-
-    try:
-        _amount = int(_message_list[-1].replace('$', ''))
-    except ValueError:
-        bot.send_message(message.chat.id, 'Olvidaste anotar el monto')
-        return
-
-    with open('lista_gastos.csv', 'a') as lista_gastos:
-        writer = csv.writer(lista_gastos)
-        writer.writerow([_amount, 'juli_individual', _description, _date])
+        if user_id == 1986869505:
+            writer.writerow([_amount, 'juli_individual', _description, _date])
+        else:
+            writer.writerow([_amount, 'licha_individual', _description, _date])
 
     bot.send_message(message.chat.id, 'Pago cargado correctamente')
 
