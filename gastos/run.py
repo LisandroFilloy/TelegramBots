@@ -166,4 +166,4 @@ def show_id(message):
     bot.send_message(message.chat.id, _id)
 
 
-bot.polling()
+bot.infinity_polling()
