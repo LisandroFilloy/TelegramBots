@@ -6,7 +6,7 @@ import os
 
 API_KEY = os.environ['FOOD_DIARY_API_KEY']
 bot = telebot.TeleBot(API_KEY)
-
+USER_ID_LIST = [935301551]
 
 def formatted_date():
     _today_sv = datetime.datetime.today()
@@ -115,6 +115,6 @@ def comentario(message):
     bot.send_message(message.chat.id, 'Comentario cargado con éxito')
 
 
-bot.polling()
+bot.infinity_polling()
 
 

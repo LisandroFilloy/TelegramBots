@@ -160,6 +160,23 @@ def gasto_individual(message):
     bot.send_message(message.chat.id, 'Pago cargado correctamente')
 
 
+@bot.message_handler(command=['borrarUltimo'])
+def delete_last_row(message):
+    user_id = message.from_user.id
+    if user_id not in USER_ID_LIST:
+        bot.send_message(message.chat.id, 'Usuario no habilitado')
+        return
+
+    with open('lista_gastos.csv', 'r+') as lista_gastos:
+        lines = lista_gastos.readlines()
+        lines.pop()
+
+    with open('lista_gastos.csv', 'w+') as lista_gastos:
+        lista_gastos.writelines(lines)
+
+    bot.send_message(message.chat.id, 'Ultimo gasto borrado correctamente')
+
+
 @bot.message_handler(commands=['id'])
 def show_id(message):
     _id = message.from_user.id
