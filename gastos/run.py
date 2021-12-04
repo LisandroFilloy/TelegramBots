@@ -160,7 +160,7 @@ def gasto_individual(message):
     bot.send_message(message.chat.id, 'Pago cargado correctamente')
 
 
-@bot.message_handler(command=['borrarUltimo'])
+@bot.message_handler(commands=['borrarUltimo'])
 def delete_last_row(message):
     user_id = message.from_user.id
     if user_id not in USER_ID_LIST:
