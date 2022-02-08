@@ -1,12 +1,8 @@
 import telebot
 import datetime
 import pandas as pd
-from statistics import mode
 import csv
-import pdb
 import os
-
-from create_csv_lista_gastos import crear_lista_gastos
 
 API_KEY = os.environ['GASTOS_API_KEY']
 bot = telebot.TeleBot(API_KEY)
@@ -89,46 +85,46 @@ def gasto_juli(message):
     bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
 
 
-@bot.message_handler(commands=['cerrar'])
-def cerrar_mes(message):
-    user_id = message.from_user.id
-    if user_id not in USER_ID_LIST:
-        bot.send_message(message.chat.id, 'Usuario no habilitado')
-        return
-
-    df_gastos = pd.read_csv('lista_gastos.csv')
-
-    if df_gastos.empty:
-        bot.send_message(message.chat.id, f"No hubo ningun gasto")
-        return
-
-    _date = formatted_date()
-
-    fechas = list(df_gastos['fecha_de_creacion'])
-    fechas = [int(x[5:7].replace('-', '')) for x in fechas]
-    mes = mode(fechas)
-    saved_file_name_total = f'gastos_{mes}_{_date}.csv'
-    saved_file_name_licha = f'gastos_{mes}_{_date}_licha.csv'
-    saved_file_name_juli = f'gastos_{mes}_{_date}_juli.csv'
-    df_gastos.to_csv(saved_file_name_total, index=False)
-    df_gastos[df_gastos.autor.isin(['licha', 'licha_individual'])].to_csv(saved_file_name_licha, index=False)
-    df_gastos[df_gastos.autor.isin(['juli', 'juli_individual'])].to_csv(saved_file_name_juli, index=False)
-
-    _deudor, _monto = deudor(df_gastos)
-    bot.send_message(message.chat.id, f'El mes cerro con {_deudor} adeudando {_monto}')
-
-    with open(saved_file_name_total, 'rb') as doc:
-        bot.send_document(message.chat.id, doc)
-
-    with open(saved_file_name_licha, 'rb') as doc:
-        bot.send_document(message.chat.id, doc)
-
-    with open(saved_file_name_juli, 'rb') as doc:
-        bot.send_document(message.chat.id, doc)
-
-    os.remove('lista_gastos.csv')
-
-    crear_lista_gastos()
+# @bot.message_handler(commands=['cerrar'])
+# def cerrar_mes(message):
+#     user_id = message.from_user.id
+#     if user_id not in USER_ID_LIST:
+#         bot.send_message(message.chat.id, 'Usuario no habilitado')
+#         return
+#
+#     df_gastos = pd.read_csv('lista_gastos.csv')
+#
+#     if df_gastos.empty:
+#         bot.send_message(message.chat.id, f"No hubo ningun gasto")
+#         return
+#
+#     _date = formatted_date()
+#
+#     fechas = list(df_gastos['fecha_de_creacion'])
+#     fechas = [int(x[5:7].replace('-', '')) for x in fechas]
+#     mes = mode(fechas)
+#     saved_file_name_total = f'gastos_{mes}_{_date}.csv'
+#     saved_file_name_licha = f'gastos_{mes}_{_date}_licha.csv'
+#     saved_file_name_juli = f'gastos_{mes}_{_date}_juli.csv'
+#     df_gastos.to_csv(saved_file_name_total, index=False)
+#     df_gastos[df_gastos.autor.isin(['licha', 'licha_individual'])].to_csv(saved_file_name_licha, index=False)
+#     df_gastos[df_gastos.autor.isin(['juli', 'juli_individual'])].to_csv(saved_file_name_juli, index=False)
+#
+#     _deudor, _monto = deudor(df_gastos)
+#     bot.send_message(message.chat.id, f'El mes cerro con {_deudor} adeudando {_monto}')
+#
+#     with open(saved_file_name_total, 'rb') as doc:
+#         bot.send_document(message.chat.id, doc)
+#
+#     with open(saved_file_name_licha, 'rb') as doc:
+#         bot.send_document(message.chat.id, doc)
+#
+#     with open(saved_file_name_juli, 'rb') as doc:
+#         bot.send_document(message.chat.id, doc)
+#
+#     os.remove('lista_gastos.csv')
+#
+#     crear_lista_gastos()
 
 
 @bot.message_handler(commands=['mio'])
