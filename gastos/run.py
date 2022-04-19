@@ -110,4 +110,11 @@ def show_id(message):
     bot.send_message(message.chat.id, _id)
 
 
+@bot.message_handler(commands=['deudor'])
+def print_debt(message):
+    df_gastos = pd.read_csv('lista_gastos.csv')
+    _deudor, _monto = deudor(df_gastos)
+    bot.send_message(message.chat.id, f"Deudor: {_deudor} - ${_monto}")
+
+    
 bot.infinity_polling()
